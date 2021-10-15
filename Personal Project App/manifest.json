@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+  
+    "name": "Personal Project Time Management App",
+    "description": "official app",
+    "version": "1",
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["content_scripts/blockedSiteHandler.js", "content_scripts/content.js"]
+        }
+      ],
+  
+    "browser_action": {
+     "default_icon": "icon.png",
+     "default_popup": "site_blocker/blockerPage.html"
+    },
+
+    "permissions": [
+     "activeTab",
+     "storage"
+     ],
+     "content_security_policy": "script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js; object-src 'self'"
+  }

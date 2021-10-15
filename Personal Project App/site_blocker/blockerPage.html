@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <title>title</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  </head>
+  <div>
+    <div class="container" style="width: 650px; height: 500px;">
+      <div class="ui fluid secondary pointing menu">
+        <a class="active item">
+          Block Sites
+        </a>
+        <a class="item" id="todo_bttn">
+          Todo Page
+        </a>
+      </div>
+
+      <div class="ui two column grid">
+        <div class="column">
+          <!--NOTE:Social Media Blocker Module-->
+
+          <div class="item" style= "margin: 5%; width: 300px;">
+            <!--module header-->
+            <h5 class="ui top attached header">
+              Block Social Medias
+            </h5>
+    
+            <div class="ui attached segment" style="height: 150px;">
+    
+              <p style="color: black">These sites are often sources of distractions, but can sometimes be used educationally. Includes sites such as youtube.</p>
+              <button class="ui positive button" id="socialMediaBlock">Start Timer</button>
+    
+              <!--timer-->
+              <div class="ui right small labeled input" id= "socialsTimerDisplay">
+                <input style="width:100px;" type="text" placeholder="Enter time..." id="timeInputSocials">
+                <div class="ui basic label">mins</div>
+              </div>
+            </div>
+          </div>
+
+          <!--NOTE: Gaming Blocker Module-->
+          <div class="item" style= "margin: 5%; width: 300px;">
+            <h5 class="ui top attached header">
+              Block Gaming-Related Sites
+            </h5>
+
+            <!--module header-->
+            <div class="ui attached segment" style="height: 150px;">
+    
+              <p style="color: black">Temporibus sint quae et esse voluptatibus dolores in voluptatem. Voluptatem veritatis eius non officiis rerum assumenda.</p> 
+              <button class="ui positive button" id="gameBlock">Start Timer</button>
+    
+              <!--timer-->
+              <div class="ui right small labeled input" id= "gameTimerDisplay">
+                <input style="width:100px;" type="text" placeholder="Enter time..." id="timeInputGames">
+                <div class="ui basic label">mins</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <!--NOTE: URL Blocker Module-->
+          <div class="item" style= "margin-top: 5%; width: 300px;">
+
+            <!--module header-->
+            <h5 class="ui top attached header"> 
+              Block Specific Sites
+            </h5>
+    
+            <div class="ui attached segment" style="height: 355px;">
+              <!--<p>I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. </p>-->
+              <p style="color: black;">Autem possimus cum et. Impedit magnam ea temporibus ab nisi sit quia. Sit reprehenderit qui similique delectus. Optio illum error in Accusamus ipsum non officia eum quasi eum est.</p>
+
+              <!--url inputs-->
+              <div class="ui tiny labeled input" style="margin: 1%;">
+                <div class="ui label">http://</div>
+                <input type="text" style="width:210px" placeholder="distractingsite.com" id="linkInput">
+              </div>
+              
+              <!--url inputs1-->
+              <div class="ui tiny labeled input" style="margin: 1%;">
+                <div class="ui label">http://</div>
+                <input type="text" style="width:210px" placeholder="intrusivelink.com" id="linkInput1">
+              </div>
+
+              <!--url inputs2-->
+              <div class="ui tiny labeled input" style="margin: 1%;">
+                <div class="ui label">http://</div>
+                <input type="text" style="width:210px" placeholder="internetdiversion.com" id="linkInput2">
+              </div>
+    
+              <!--line-->
+              <button class="ui positive button" style="margin-top: 8%;" id="linkBlock">Start Timer</button>
+              <!--timer2-->
+              <div class="ui right small labeled input" id="linkTimerDisplay">
+                <input style="width:100px;" type="text" placeholder="Enter time..." id="timeInputLink">
+                <div class="ui basic label">mins</div>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--PROJECT SCRIPTS-->
+    <script src="socialsBlocker.js"></script>
+    <script src="linkBlocker.js"></script>
+    <script src="gameBlocker.js"></script>
+    <script src="sb_tab_manager.js"></script>
+  </body>
+</html>
