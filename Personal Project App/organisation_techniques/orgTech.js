@@ -1,36 +1,43 @@
-var ui = {
+const ui = {
     timerDisplay: $("#timer_wb"),
     status: $("#status_wb"),
     settings_menu: $("#settings_popup"),
     dimmer: $("#dimmer")
 }
 
-var status_colors = {
+const status_colors = {
     work : "green",
     shortBreak : "blue",
     longBreak : "purple"
 }
 
-var menuBtns = {
+const menuBtns = {
     stop: $("#stop_wb"),
     active_bool: $("#active_wb"),
     skip: $("#skip_wb"),
     settings: $("#settings_wb")
 }
 
-var modalBtns = {
-    close: $("#close_modal"),
-    save_settings: $("save_settings"),
-    suggested_settings: $("suggested_settings")
-}
-
-var input = {
-    workTime: 0.1 * 60, //Note: 52 minutes converted to date.now() format, add user input here
-    shortBreakTime: 0.2 * 60,
+var suggested_settings = {
+    workTime: 52 * 60, //Note: 52 minutes converted to date.now() format, add user input here
+    shortBreakTime: 17 * 60,
     longBreakTime: 30 * 60000
 }
 
-var html_snippets = {
+var inputs = {}
+
+var modalInputs = {
+    work: $("#work_input"),
+    shortBreak: $("#break_input")
+}
+
+const modalBtns = {
+    close: $("#close_modal"),
+    save_settings: $("#save_settings"),
+    suggested_settings: $("#suggested_settings")
+}
+
+const html_snippets = {
     play_button: `<i class="video play big icon"></i>`,
     pause_button: `<i class="pause circle big icon"></i>`,
     modal_loading: ``
@@ -45,13 +52,14 @@ function onLoad(params) {
     modalBtns.save_settings.click()
     modalBtns.suggested_settings.click()
 
-    refreshStage()
-    updateTimerUI()
-
     chrome.storage.local.get(["remainingTimeAtPause", "active", "endTime"], function(data) {
         //NOTE: CHANGES VALUE OF TIMER ON LOAD
-        if (!data.active && typeof data.remainingTimeAtPause !== "undefined") {
-            ui.timerDisplay.html(secondsToTime(data.remainingTimeAtPause/1000)) //converts remainingTime to seconds, then to time format
+        if (!data.active) {
+            if (typeof data.remainingTimeAtPause !== "undefined") {
+                ui.timerDisplay.html(secondsToTime(data.remainingTimeAtPause/1000)) //converts remainingTime to seconds, then to time format
+            } else {
+                ui.timerDisplay.html(secondsToTime(suggested_settings.workTime))
+            }
         } else if (data.active){
             ui.timerDisplay.html(secondsToTime((data.endTime - Date.now())/1000)) //if timer still active, set timer based on endTime
         }
@@ -59,10 +67,29 @@ function onLoad(params) {
         //NOTE: CHANGES VALUE OF CENTER BUTTON DEPENDING ON WHETHER PAUSED OR PLAYING
         if (typeof data.active == "undefined") {
             chrome.storage.local.set({'active': false});
-        } else if (!data.active) {
-            menuBtns.active_bool.html(html_snippets.play_button)
+            chrome.storage.local.set({'currentStage': "work"});
+            chrome.storage.local.set({'storedSettings': suggested_settings});
+
+            inputs = suggested_settings
+        } else {
+            switch (data.active) {
+                case true:
+                    menuBtns.active_bool.html(html_snippets.pause_button)
+                    break;
+            
+                case false:
+                    menuBtns.active_bool.html(html_snippets.play_button)
+                    break;
+            }
+
+            chrome.storage.local.get(["storedSettings"], function(data) {
+                inputs = data.storedSettings
+            })
         }
     })
+
+    
+    updateTimerUI()
 }
 
 function secondsToTime(seconds) {
@@ -89,6 +116,28 @@ function getNextStage(stage) {
             break;
 }}
 
+function setInputValue(input, value) {
+    input.val(value)
+}
+
+function resetStage() {
+    chrome.storage.local.get(['currentStage'], function(data) {
+        chrome.storage.local.set({'active': false})
+        chrome.storage.local.set({'remainingTimeAtPause': inputs[data.currentStage + "Time"] * 1000}); //converts user input (secs) to ms
+        chrome.storage.local.set({'endTime' : undefined})
+
+        //TODO: reset UI
+        setStatus(data.currentStage)
+
+        chrome.storage.local.get("remainingTimeAtPause", function(data) {
+            console.log(data.remainingTimeAtPause)
+            ui.timerDisplay.html(secondsToTime(data.remainingTimeAtPause/1000)) //converts remainingTime to seconds, then to time format
+        })
+ 
+        menuBtns.active_bool.html(html_snippets.play_button)
+    })
+}
+
 //!ON LOAD
 onLoad()
 
@@ -98,6 +147,9 @@ menuBtns.stop.click(function (event) {onStopButton()})
 menuBtns.skip.click(function (event) {onSkipButton()})
 menuBtns.settings.click(function (event) {onSettingsButton()})
 modalBtns.close.click(function (event) {onCloseModalButton()})
+modalBtns.save_settings.click(function (event) {onSaveSettingsButton()})
+modalBtns.suggested_settings.click(function (event) {onSuggestedSettingsButton()})
+
 
 function timer(duration) {
     //NOTE: GETS TIME DIFFERENCE
@@ -172,7 +224,7 @@ function onPlayPauseButton() {
                     if (typeof data.remainingTimeAtPause !== "undefined") { //if the value of remainingTime exists, ie. timer has been started
                         timer(Math.floor(data.remainingTimeAtPause/1000))
                     } else { //else statement is first ever initial press
-                        timer(input.workTime)
+                        timer(inputs.workTime)
                         chrome.storage.local.set({'currentStage': "work"});
                     }
                 })
@@ -206,7 +258,7 @@ function onStopButton() {
 
     chrome.storage.local.set({'currentStage': "work"});
     chrome.storage.local.set({'active': false})
-    chrome.storage.local.set({'remainingTimeAtPause' : input.workTime * 1000});
+    chrome.storage.local.set({'remainingTimeAtPause' : inputs.workTime * 1000});
     chrome.storage.local.set({'endTime' : undefined})
 
     //TODO: reset UI
@@ -226,7 +278,7 @@ function onSkipButton() {
 
         chrome.storage.local.set({'currentStage': nextStage})
         chrome.storage.local.set({'active': false})
-        chrome.storage.local.set({'remainingTimeAtPause': input[nextStage + "Time"] * 1000}); //converts user input (secs) to ms
+        chrome.storage.local.set({'remainingTimeAtPause': inputs[nextStage + "Time"] * 1000}); //converts user input (secs) to ms
         chrome.storage.local.set({'endTime' : undefined})
 
         //TODO: reset UI
@@ -244,6 +296,9 @@ function onSkipButton() {
 function onSettingsButton(params) {
     ui.settings_menu.addClass("active")
     ui.dimmer.addClass("active")
+
+    setInputValue(modalInputs.work, inputs.workTime/60)
+    setInputValue(modalInputs.shortBreak, inputs.shortBreakTime/60)
 }
 
 function onCloseModalButton(params) {
@@ -255,8 +310,25 @@ function onSaveSettingsButton(params) {
     /* code to save modal values to inputs.times */
     // NOTE: GOES HERE 
 
+    let settings_val = {
+        workTime: modalInputs.work.val() * 60,
+        shortBreakTime: modalInputs.shortBreak.val() * 60
+    }
+
+    chrome.storage.local.set({'storedSettings': settings_val});
+    inputs["workTime"] = settings_val.workTime
+    inputs["shortBreakTime"] = settings_val.shortBreakTime
+    
+    console.log("settings saved as: ")
+    console.log(inputs)
+
+    resetStage()
+    ui.settings_menu.removeClass("active")
+    ui.dimmer.removeClass("active")
 }
 
 function onSuggestedSettingsButton(params) {
-    //SET INPUT VALUES TO OUR SUGGESTED VALUES: 52 MIN BREAK, 17 MIN BREAK
+    //SET INPUT VALUES TO OUR SUGGESTED VALUES: 52 MIN BREAK, 17 MIN BREAK\
+    setInputValue(modalInputs.work, suggested_settings.workTime/60)
+    setInputValue(modalInputs.shortBreak, suggested_settings.shortBreakTime/60)
 }

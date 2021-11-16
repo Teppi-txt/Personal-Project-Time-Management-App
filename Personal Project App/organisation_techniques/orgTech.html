@@ -14,7 +14,7 @@
                 <a class="item" name="tab" id="site_blocker">Block Sites</a>
                 <a class="item" name="tab" id="todo_page">Todo Page</a>
                 <a class="item" name="tab" id="planner">Planner</a>
-                <a class="active item" name="tab" id="org_tech">Organisation Techniques</a>
+                <a class="active item" name="tab" id="org_tech">Work-Break Timer</a>
               </div>
 
             <div id="module_container" class="ui grid" style="margin: auto;">
@@ -84,24 +84,46 @@
             </div>
 
             <!-- !MODAL STARTS HERE -->
-            <div class="ui mini settings modal" id="settings_popup">
+            <div class="ui settings modal" id="settings_popup">
                 <i class="close icon" id="close_modal"></i>
                 <div class="header">
                   Timer Settings
                 </div>
                 <div class="content" style="height: 150px">
                     <div class="description">
-                        <div class="ui header">We've auto-chosen a profile image for you.</div>
-                        <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-                        <p>Is it okay to use this photo?</p>
+                        <div class="ui header" id="modal_header"> We've auto-chosen some timer settings for you.</div>
+                        <p>Use the input fields below to adjust the work-break times based on your wanted result.</p>
                     </div>
 
                     <!-- <div class="ui huge text loader" id="modal_loading">
                         <div style="flex: 1;">Loading </div>
                     </div> -->
+
+                    <div class="ui grid">
+                        <div class="row">
+                            <div class="ui spaced labeled input" style="margin-left: 4.5%; margin-right: 1%;">
+                                <div class="ui label">
+                                    Work:
+                                </div>
+                                <input type="text" placeholder="minutes" style="width: 140px" id="work_input">
+                            </div>
+
+                            <div class="ui spaced labeled input">
+                                <div class="ui label">
+                                    Break:
+                                </div>
+                                <input type="number" placeholder="minutes" style="width: 140px" id="break_input">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                        </div>
+                    </div>
                 </div>
                 <div class="actions">
                     <div class="ui left floated black deny button" id="suggested_settings">
+                        <i class="user icon"></i>
                         Use suggested settings
                     </div>
                     <div class="ui positive right float right labeled icon button" id="save_settings">

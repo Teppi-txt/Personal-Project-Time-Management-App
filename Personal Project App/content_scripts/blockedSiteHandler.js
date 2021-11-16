@@ -18,7 +18,7 @@ const generateSTYLE = () => {
 
 //list of blocked socials, formatted as array
 var socials = ["www.youtube.com", "www.instagram.com"] 
-var games = ["osu.ppy.sh"] 
+var games = ["osu.ppy.sh", "tetris.com", "https://play2048.co"] 
 
 
 //check whether the current page is included in hostnames
