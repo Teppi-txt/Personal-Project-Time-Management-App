@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+  
+    "name": "Personal Project Time Management App",
+    "description": "official app",
+    "version": "1",
+    "content_scripts": [
+        {
+          "matches": ["<all_urls>"],
+          "js": ["blockedSiteHandler.js", "content.js"]
+        }
+      ],
+  
+    "browser_action": {
+     "default_icon": "icon.png",
+     "default_popup": "popup.html"
+    },
+
+    "permissions": [
+     "activeTab",
+     "storage"
+     ]
+  }

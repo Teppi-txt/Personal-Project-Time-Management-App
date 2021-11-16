@@ -1,0 +1,85 @@
+ 
+    <!--TOP MENU-->
+    <div class="ui top menu"><div style="width: 600px;"></div>
+      <!--MENU DROPDOWN-->
+      <div class="left ui simple dropdown icon item">
+        <i class="large bars icon"><!--menu icon for app features/pages--></i>
+        <div class="menu">
+
+          <!--Org. tech (multi menu selection)-->
+          <div class="item"><i class="dropdown icon"></i>
+              <span class="text">Organisation Techniques</span></div>
+
+          <!--timeline/schedule tab-->
+          <div class="item"><i class="blank icon"></i>
+              <span class="text">Upcoming</span></div>
+
+          <!--item3-->
+          <div class="item"><i class="blank icon"></i>
+              <span class="text">Schedule</span></div>
+
+          <!--item4-->
+          <div class="item"><i class="blank icon"></i>
+              <span class="text">Task Manager</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--CENTERED CONTENT-->
+    <div class="ui grid">
+      <div class="two wide column">
+        <div class="item">
+          <div style= "margin-bottom: 5%; width: 300px;">
+          
+          <!--Social Media Blocker Module-->
+          <h5 class="ui top attached header">
+            Block Social Medias
+            <button class="compact circular ui right floated icon button">
+              <i class="help icon"></i> 
+            </button>
+          </h5>
+  
+          <div class="ui attached segment" style="height: 150px;">
+  
+            <p>Dogs are one type of animal. Cats are another type of animal. There are many different types of domestic animals.</p>
+            <button class="ui green toggle button">Start Timer</button>
+  
+            <!--timer-->
+            <div class="ui right small labeled input">
+              <input style="width:100px;" type="text" placeholder="Enter time...">
+              <div class="ui basic label">mins</div>
+            </div>
+          </div>
+        </div>  
+      </div>
+
+      <div class="two wide column">
+        <div class="item" style= "margin-bottom: 5%; width: 300px;">
+          <!--URL Blocker Module-->
+          <h5 class="ui top attached header"> Block Specific Sites
+            <button class="compact circular ui right floated icon button"><i class="help icon"></i></button>
+          </h5>
+  
+          <div class="ui attached segment" style="height: 150px;">
+            <!--<p>I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. I like penguins. </p>-->
+  
+            <!--url input-->
+            <div class="ui tiny labeled input">
+              <div class="ui label">http://</div>
+              <input type="text" placeholder="distractingsite.com">
+            </div>
+  
+            <!--line-->
+            <div class="ui divider"></div>
+  
+            <button class="ui green toggle button">Start Timer</button>
+            <!--timer2-->
+            <div class="ui right small labeled input">
+              <input style="width:100px;" type="text" placeholder="Enter time...">
+              <div class="ui basic label">mins</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
