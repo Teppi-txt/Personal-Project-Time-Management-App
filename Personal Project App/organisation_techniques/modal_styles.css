@@ -1,0 +1,25 @@
+.settings {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 430px;
+    z-index: 11;
+}
+
+#dimmer {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#dimmer.active {
+    opacity: 0.2;
+    pointer-events: all;
+}

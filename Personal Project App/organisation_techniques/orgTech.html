@@ -4,6 +4,7 @@
         <title>title</title>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" href="modal_styles.css">
     </head>
     <body>
         <div class="container" style="width: 650px; height: 500px;">
@@ -49,39 +50,69 @@
                                 Work-Break Timer
                             </h5>
                             
-                            <div class="right menu">
-                                <div class="ui icon button item" id="settings_wb">
+                            <div class="right icon menu">
+                                <a class="ui item" id="settings_wb">
                                     <i class="cog icon" style="margin: 0.5%;"></i>
-                                </div>
+                                </a>
                             </div>
                           </div>
 
                         <div class="ui attached segment" style="height: 320px;">
-                            <div class="ui header" style="font-size: 100px; text-align: center; padding-top: 10%;" id="timer_wb">00:00</div>
+                            <div class="ui header" style="font-size: 100px; text-align: center; padding-top: 12%;" id="timer_wb">00:00</div>
                             <div class="ui centered grid">
-                                <a class="ui large blue label" style="margin: 2%;" id="status_wb">
-                                    <i class="headphones icon"></i>
-                                    Currently on: Break
+                                <a class="ui large green label" style="margin: 2%;" id="status_wb">
+                                    <i class="book icon"></i>
+                                    Currently working.
                                 </a>
                             </div>
                         </div>
 
                         <div class="ui attached icon three item menu" style="height: 60px;">
-                            <a class="item">
-                                <i class="stop circle outline big icon" id="stop_wb"></i>
+                            <a class="item" id="stop_wb">
+                                <i class="stop circle outline big icon"></i>                         
                             </a>
-                            <a class="item">
-                                <i class="video play big icon" id="pause_wb"></i>
+                            <a class="item" id="active_wb">
+                                <i class="video play big icon"></i>
                                 <!--NOTE: (JS)REPLACE WITH "pause"-->
                             </a>
-                            <a class="item">
-                                <i class="step forward big icon" id="skip_wb"></i>
+                            <a class="item" id="skip_wb">
+                                <i class="step forward big icon"></i>
                             </a>
                             </div>
                     </div>
                 </div>
-            
             </div>
+
+            <!-- !MODAL STARTS HERE -->
+            <div class="ui mini settings modal" id="settings_popup">
+                <i class="close icon" id="close_modal"></i>
+                <div class="header">
+                  Timer Settings
+                </div>
+                <div class="content" style="height: 150px">
+                    <div class="description">
+                        <div class="ui header">We've auto-chosen a profile image for you.</div>
+                        <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                        <p>Is it okay to use this photo?</p>
+                    </div>
+
+                    <!-- <div class="ui huge text loader" id="modal_loading">
+                        <div style="flex: 1;">Loading </div>
+                    </div> -->
+                </div>
+                <div class="actions">
+                    <div class="ui left floated black deny button" id="suggested_settings">
+                        Use suggested settings
+                    </div>
+                    <div class="ui positive right float right labeled icon button" id="save_settings">
+                        Save Settings
+                        <i class="checkmark icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DIMMER HTML -->
+            <div id="dimmer"></div>
         </div>
     <script src="orgTech.js"></script>
     <script src="../scripts/tabHandler.js"></script>
