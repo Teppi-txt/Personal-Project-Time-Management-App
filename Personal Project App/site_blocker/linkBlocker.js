@@ -14,8 +14,8 @@ function link_timer_setup(){
     chrome.storage.local.set({'linkBlockTimer': end_time}, function() { link_timer_script()});
 }
 
-function run_confirm_alert() {
-    var popup = confirm("You are about to stop blocking selected sites. Continue?")
+function run_confirm_alert(block_message) {
+    var popup = confirm(`You are about to stop blocking ${block_message}. Continue?`)
     return popup
 }
 
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         chrome.storage.local.get('linkBlockActive', function(data) {
             if (data.linkBlockActive) {
-                if (run_confirm_alert()) { //*checks if user agrees to stop the program using an alert
+                if (run_confirm_alert("specific sites")) { //*checks if user agrees to stop the program using an alert
                     chrome.storage.local.set({'linkBlockActive': false}, function() {
                         editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
                         clearInterval(link_timer) //END TIMER

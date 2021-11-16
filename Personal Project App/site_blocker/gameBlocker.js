@@ -13,8 +13,8 @@ function game_timer_setup(){
     chrome.storage.local.set({'gameBlockTimer': end_time}, function() { game_timer_script()});
 }
 
-function run_confirm_alert() {
-    var popup = confirm("You are about to stop blocking game-related sites. Continue?")
+function run_confirm_alert(block_message) {
+    var popup = confirm(`You are about to stop blocking ${block_message}. Continue?`)
     return popup
 }
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //set button toggle in chrome storage as true
         chrome.storage.local.get('gameBlockActive', function(data) {
             if (data.gameBlockActive) {
-                if (run_confirm_alert()) { //*checks if user agrees to stop the program using an alert
+                if (run_confirm_alert("game-related sites")) { //*checks if user agrees to stop the program using an alert
                     chrome.storage.local.set({'gameBlockActive': false}, function() {
                         editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
                         clearInterval(games_timer) //END TIMER

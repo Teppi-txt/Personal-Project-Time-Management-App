@@ -13,8 +13,8 @@ function timer_setup(){
     chrome.storage.local.set({'socialBlockTimer': end_time}, function() { timer_script()});
 }
 
-function run_confirm_alert() {
-    var popup = confirm("You are about to stop blocking social media sites. Continue?")
+function run_confirm_alert(block_message) {
+    var popup = confirm(`You are about to stop blocking ${block_message}. Continue?`)
     return popup
 }
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //set button toggle in chrome storage as true
         chrome.storage.local.get('socialBlockActive', function(data) {
             if (data.socialBlockActive) {
-                if (run_confirm_alert()) {
+                if (run_confirm_alert("social media sites")) { //*checks if user agrees to stop the program using an
                     chrome.storage.local.set({'socialBlockActive': false}, function() {
                         editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
                         clearInterval(socials_timer) //END TIMER
