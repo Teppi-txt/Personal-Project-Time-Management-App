@@ -14,6 +14,11 @@ function link_timer_setup(){
     chrome.storage.local.set({'linkBlockTimer': end_time}, function() { link_timer_script()});
 }
 
+function run_confirm_alert() {
+    var popup = confirm("You are about to stop blocking selected sites. Continue?")
+    return popup
+}
+
 function link_timer_script(){
     var blockBtn = document.getElementById("linkBlock");
     var display = document.getElementById("linkTimerDisplay"); //* DISPLAY MODULE
@@ -98,11 +103,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         chrome.storage.local.get('linkBlockActive', function(data) {
             if (data.linkBlockActive) {
-                chrome.storage.local.set({'linkBlockActive': false}, function() {
-                    editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
-                    clearInterval(link_timer) //END TIMER
-                    link_reset_input(display) //RESET TIMER UI
-                });
+                if (run_confirm_alert()) { //*checks if user agrees to stop the program using an alert
+                    chrome.storage.local.set({'linkBlockActive': false}, function() {
+                        editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
+                        clearInterval(link_timer) //END TIMER
+                        link_reset_input(display) //RESET TIMER UI
+                    });
+                }
             } else {
                 chrome.storage.local.set({'linkBlockActive': true}, function() {
                     editHTML(blockBtn, "ui negative button", "Stop Timer") //CHANGE BUTTON TOGGLE STATE TO ACTIVE

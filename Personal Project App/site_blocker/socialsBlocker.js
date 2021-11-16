@@ -13,6 +13,11 @@ function timer_setup(){
     chrome.storage.local.set({'socialBlockTimer': end_time}, function() { timer_script()});
 }
 
+function run_confirm_alert() {
+    var popup = confirm("You are about to stop blocking social media sites. Continue?")
+    return popup
+}
+
 function timer_script(){
     var blockBtn = document.getElementById("socialMediaBlock");
     var display = document.getElementById("socialsTimerDisplay"); //* DISPLAY MODULE
@@ -89,11 +94,13 @@ document.addEventListener("DOMContentLoaded", function() {
         //set button toggle in chrome storage as true
         chrome.storage.local.get('socialBlockActive', function(data) {
             if (data.socialBlockActive) {
-                chrome.storage.local.set({'socialBlockActive': false}, function() {
-                    editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
-                    clearInterval(socials_timer) //END TIMER
-                    socials_reset_input(display) //RESET TIMER UI
-                });
+                if (run_confirm_alert()) {
+                    chrome.storage.local.set({'socialBlockActive': false}, function() {
+                        editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE
+                        clearInterval(socials_timer) //END TIMER
+                        socials_reset_input(display) //RESET TIMER UI
+                    });
+                }
             } else {
                 chrome.storage.local.set({'socialBlockActive': true}, function() {
                     editHTML(blockBtn, "ui negative button", "Stop Timer") //CHANGE BUTTON TOGGLE STATE TO ACTIVE
