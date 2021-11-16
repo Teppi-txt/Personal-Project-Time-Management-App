@@ -61,6 +61,15 @@ chrome.storage.local.get("socialBlockActive", function(data) {
 
         //SHOW TIMER ON LAUNCH
         timer_script()
+
+        chrome.storage.local.get("socialBlockTimer", function(data) {
+            var display = document.getElementById("socialsTimerDisplay"); //* DISPLAY MODULE
+
+            //*gets the ongoing socialBlockTimer, and sets timer to that value
+            var display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+            display_time.setSeconds(Math.round(data.socialBlockTimer - Date.now())/1000) //CONVERT DATE TO SECS
+            display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT
+        })
     }
 });
 

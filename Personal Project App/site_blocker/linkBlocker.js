@@ -69,6 +69,15 @@ chrome.storage.local.get("linkBlockActive", function(data) {
                 input.val(data.blockedLinks[i])
             }
         })
+
+        chrome.storage.local.get("linkBlockTimer", function(data) {
+            var display = document.getElementById("linkTimerDisplay"); //* DISPLAY MODULE
+
+            //*gets the ongoing linkBlockTimer, and sets timer to that value
+            var display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+            display_time.setSeconds(Math.round(data.linkBlockTimer - Date.now())/1000) //CONVERT DATE TO SECS
+            display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT
+        })
     }
 });
 

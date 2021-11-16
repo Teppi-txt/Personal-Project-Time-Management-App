@@ -59,6 +59,15 @@ chrome.storage.local.get("gameBlockActive", function(data) {
         editHTML(blockBtn, "ui negative button", "Stop Timer")
         console.log("active1!!! UWUWUUAAA")
 
+        chrome.storage.local.get("gameBlockTimer", function(data) {
+            var display = document.getElementById("gameTimerDisplay"); //* DISPLAY MODULE
+
+            //*gets the ongoing gameBlockTimer, and sets timer to that value
+            var display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+            display_time.setSeconds(Math.round(data.gameBlockTimer - Date.now())/1000) //CONVERT DATE TO SECS
+            display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT
+        })
+
         //SHOW TIMER ON LAUNCH
         game_timer_script()
     }
