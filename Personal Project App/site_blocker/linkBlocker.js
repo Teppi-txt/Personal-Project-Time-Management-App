@@ -8,7 +8,7 @@ function editHTML(object, class_data, content) {
 
 function link_timer_setup(){
     var link_timer_input = document.getElementById("timeInputLink") //user input slot for time, gets time through //*timer_input.value
-    var blockedLinks = [document.getElementById('linkInput').value, document.getElementById('linkInput1').value, document.getElementById('linkInput2').value]
+    var blockedLinks = [document.getElementById('linkInput0').value, document.getElementById('linkInput1').value, document.getElementById('linkInput2').value]
     var time = link_timer_input.value; var end_time = Date.now() + time * 60000; //*calculates end time
     chrome.storage.local.set({'blockedLinks': blockedLinks}, function() {console.log("blocked" + blockedLinks)});
     chrome.storage.local.set({'linkBlockTimer': end_time}, function() { link_timer_script()});
@@ -57,7 +57,6 @@ chrome.storage.local.get("linkBlockActive", function(data) {
         //!red button
         //TODO: MAKE BUTTON ADJUST COLOR BASED ON linkBlockActive
         editHTML(blockBtn, "ui negative button", "Stop Timer")
-        console.log("active1!!! UWUWUUAAA")
 
         //!SHOW TIMER ON LAUNCH
         link_timer_script()
@@ -65,14 +64,13 @@ chrome.storage.local.get("linkBlockActive", function(data) {
         //gets submitted link data
         chrome.storage.local.get("blockedLinks", function(data) {
             //replaces blank fields with submitted data
-            document.getElementById('linkInput').value = data.blockedLinks[0]
-            document.getElementById('linkInput1').value = data.blockedLinks[1]
-            document.getElementById('linkInput2').value = data.blockedLinks[2]
+            for (let i = 0; i < data.blockedLinks.length; i++) {
+                var input = $('#linkInput' + i)
+                input.val(data.blockedLinks[i])
+            }
         })
     }
 });
-
-console.log($('#miscTimerDisplay'))
 
 
 //?--------------------------------------------------------PROCESS----------------------------------------------------------------//
@@ -104,6 +102,5 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
-
     }, false);
 }, false);

@@ -4,23 +4,60 @@
         <title>title</title>
         <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" href="todoStyle.css">
     </head>
     <body>
-        <div class="container" style="width: 650px; height: 500px;">
+        <div class="container" style="max-width: 650px; width: 650px; height: 500px; resize: none;">
             <!--NOTE: PAGE MENU => TABULAR-->
             <div class="ui fluid secondary pointing menu">
-                <a class="item">
+                <a class="item" name="tab" id="main_menu/mainMenu.html">
+                Homepage
+                </a>
+                <a class="item" name="tab" id="site_blocker/blockerPage.html">
                 Block Sites
                 </a>
-                <a class="active item" id="todo_bttn">
+                <a class="active item" name="tab" id="todo_page/todoPage.html">
                 Todo Page
                 </a>
-            </div>
+                <a class="item" name="tab" id="todo_page/todoPage.html">
+                Planner
+                </a>
+                <a class="item" name="tab" id="todo_page/todoPage.html">
+                Organisation Techniques
+                </a>
+              </div>
 
             <div class="ui two column grid">
-                <div class="red column">hi</div>
+                <div class="column" style="width: 62.5%; overflow: auto;">
+                    <div class="container">
+                        <div class="ui segment" style="min-height: 440px; margin-left: 4%; margin-right: 0%;"> <!--margin: top-bottom = 0%, right-left = 2.5%-->
+                            <div class="ui very relaxed divided list" id="todoList">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="column" style="width: 32.5%; padding-left:0%">
+                    <div class="ui centered segment" style="margin: 0%; width: 110%; min-height: 440px;">
+                        <div class="ui form" style="margin-bottom: 4%;">
+                            <div class="required field" style="margin-bottom: 6%;">
+                            <label>Todo:</label>
+                            <textarea rows="2" style="max-height: 100px;" id="todoTextInput"></textarea>
+                            </div>
+
+                            <div class="field" style="margin-bottom: 6%;">
+                                <label>Time:</label>
+                                <textarea rows="1" style="resize: none;" id="todoTimeInput"></textarea>
+                            </div>
+                        </div>
+
+                        <button class="ui fluid positive button" id="addTodo" style="margin-bottom: 4%;" >Add Todo</button>
+                        <button class="ui fluid negative button" id="clearTodos" >Clear all Todos</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <script src="" async defer></script>
+        <script src="../scripts/tabHandler.js"></script>
+        <script src="todoPage.js"></script>
     </body>
 </html>

@@ -26,7 +26,7 @@ function game_timer_script(){
             display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT
 
             //NOTE: LOGIC FOR TIMER = 0
-            if (display_time <= 0 && !data.gameBlockTimer){
+            if (display_time <= 0 && data.gameBlockTimer){
                 console.log("timer ended")
                 chrome.storage.local.set({'gameBlockActive': false}, function() {
                     editHTML(blockBtn, "ui positive button", "Start Timer") //CHANGE BUTTON TOGGLE STATE TO INACTIVE

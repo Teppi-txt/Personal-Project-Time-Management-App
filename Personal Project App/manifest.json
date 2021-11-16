@@ -13,7 +13,7 @@
   
     "browser_action": {
      "default_icon": "icon.png",
-     "default_popup": "site_blocker/blockerPage.html"
+     "default_popup": "initial_popup/pageLoader.html"
     },
 
     "permissions": [

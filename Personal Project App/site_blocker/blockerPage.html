@@ -7,12 +7,23 @@
   </head>
   <div>
     <div class="container" style="width: 650px; height: 500px;">
+
+      <!--NOTE: TAB BAR => MUST FOLLOW pageLoader.html tabs-->
       <div class="ui fluid secondary pointing menu">
-        <a class="active item">
-          Block Sites
+        <a class="item" name="tab" id="main_menu/mainMenu.html">
+        Homepage
         </a>
-        <a class="item" id="todo_bttn">
-          Todo Page
+        <a class="active item" name="tab" id="site_blocker/blockerPage.html">
+        Block Sites
+        </a>
+        <a class="item" name="tab" id="todo_page/todoPage.html">
+        Todo Page
+        </a>
+        <a class="item" name="tab" id="todo_page/todoPage.html">
+        Planner
+        </a>
+        <a class="item" name="tab" id="todo_page/todoPage.html">
+        Organisation Techniques
         </a>
       </div>
 
@@ -76,7 +87,7 @@
               <!--url inputs-->
               <div class="ui tiny labeled input" style="margin: 1%;">
                 <div class="ui label">http://</div>
-                <input type="text" style="width:210px" placeholder="distractingsite.com" id="linkInput">
+                <input type="text" style="width:210px" placeholder="distractingsite.com" id="linkInput0">
               </div>
               
               <!--url inputs1-->
@@ -108,6 +119,6 @@
     <script src="socialsBlocker.js"></script>
     <script src="linkBlocker.js"></script>
     <script src="gameBlocker.js"></script>
-    <script src="sb_tab_manager.js"></script>
+    <script src="../scripts/tabHandler.js"></script>
   </body>
 </html>
