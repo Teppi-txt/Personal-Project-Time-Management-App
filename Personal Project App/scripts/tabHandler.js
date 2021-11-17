@@ -12,7 +12,7 @@ tab_list.click(function(event) {
         "homepage" : "main_menu/mainMenu.html",
         "site_blocker" : "site_blocker/blockerPage.html",
         "todo_page" : "todo_page/todoPage.html",
-        "planner" : "todo_page/todoPage.html",
+        "planner" : "planner/planner.html",
         "org_tech" : "organisation_techniques/orgTech.html"
     }
     console.log("tab clicked")
