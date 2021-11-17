@@ -8,8 +8,14 @@ function editHTML(object, class_data, content) {
 
 function game_timer_setup(){
     var game_timer_input = document.getElementById("timeInputGames") //user input slot for time, gets time through //*timer_input.value
-    console.log(game_timer_input.value)
     var time = game_timer_input.value; var end_time = Date.now() + time * 60000; //*calculates end time
+    var display = document.getElementById("gameTimerDisplay"); //* DISPLAY MODULE
+
+    /* this code makes the timer more responsive by setting the timer immediately */
+    let display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+    display_time.setSeconds(Math.round(end_time - Date.now())/1000) //CONVERT DATE TO SECS
+    display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT    
+
     chrome.storage.local.set({'gameBlockTimer': end_time}, function() { game_timer_script()});
 }
 

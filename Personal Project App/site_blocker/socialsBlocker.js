@@ -8,8 +8,13 @@ function editHTML(object, class_data, content) {
 
 function timer_setup(){
     var timer_input = document.getElementById("timeInputSocials") //user input slot for time, gets time through //*timer_input.value
-    console.log(timer_input)
     var time = timer_input.value; var end_time = Date.now() + time * 60000; //*calculates end time
+    var display = document.getElementById("socialsTimerDisplay"); //* DISPLAY MODULE
+
+    /* this code makes the timer more responsive by setting the timer immediately */
+    let display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+    display_time.setSeconds(Math.round(end_time - Date.now())/1000) //CONVERT DATE TO SECS
+    display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT    
     chrome.storage.local.set({'socialBlockTimer': end_time}, function() { timer_script()});
 }
 

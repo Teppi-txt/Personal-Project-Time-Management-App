@@ -10,6 +10,16 @@ function link_timer_setup(){
     var link_timer_input = document.getElementById("timeInputLink") //user input slot for time, gets time through //*timer_input.value
     var blockedLinks = [document.getElementById('linkInput0').value, document.getElementById('linkInput1').value, document.getElementById('linkInput2').value]
     var time = link_timer_input.value; var end_time = Date.now() + time * 60000; //*calculates end time
+    var display = document.getElementById("linkTimerDisplay"); //* DISPLAY MODULE
+
+    /* this code makes the timer more responsive by setting the timer immediately */
+    let display_time = new Date(0); //!GENERATES NEW DATA USED IN THE DISPLAY
+    display_time.setSeconds(Math.round(end_time - Date.now())/1000) //CONVERT DATE TO SECS
+    display.innerHTML = display_time.toISOString().substr(11, 8); //CONVERT DATE FORMAT TO TIME FORMAT    
+
+
+
+
     chrome.storage.local.set({'blockedLinks': blockedLinks}, function() {console.log("blocked" + blockedLinks)});
     chrome.storage.local.set({'linkBlockTimer': end_time}, function() { link_timer_script()});
 }
