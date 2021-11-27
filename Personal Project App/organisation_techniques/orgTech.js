@@ -88,7 +88,7 @@ function onLoad(params) {
         }
     })
 
-    
+    refreshStage()
     updateTimerUI()
 }
 

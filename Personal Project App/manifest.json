@@ -7,7 +7,7 @@
     "content_scripts": [
         {
           "matches": ["<all_urls>"],
-          "js": ["content_scripts/blockedSiteHandler.js", "content_scripts/content.js"]
+          "js": ["content_scripts/blockedSiteHandler.js"]
         }
       ],
     
@@ -23,7 +23,6 @@
 
     "permissions": [
      "activeTab",
-     "storage"
-     ],
+     "storage"],
      "content_security_policy": "script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js; object-src 'self'"
   }
